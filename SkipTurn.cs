@@ -2,8 +2,15 @@
 
 public class SkipTurn : IAction
 {
+    private readonly Character _character;
+
+    public SkipTurn(Character character)
+    {
+        _character = character;
+    }
+
     public string Execute(Battle battle)
     {
-        return "NOTHING";
+        return $"{_character.Name} did NOTHING.";
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace TheFinalBattle;
 
-public class TrueProgrammer : Character
+public class TrueProgrammer : Hero
 {
     public override string Name { get; }
 

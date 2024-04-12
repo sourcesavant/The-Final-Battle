@@ -1,9 +1,18 @@
 ﻿namespace TheFinalBattle;
 
-public class ComputerPlayer : IPlayer
+public class ComputerPlayer : Player
 {
-    public IAction PickAction()
+    public ComputerPlayer(Battle battle) : base(battle) { }
+
+    public override string PickAction(Character character)
     {
-        return new SkipTurn();
+        Party enemy = _battle.GetEnemyPartyFor(character);
+        Character target = enemy.Characters.First();
+        Attack attack = character switch
+        {
+            SKELETON       => new BoneCrunch(character, target),
+            TrueProgrammer => new Punch(character, target),
+        };
+        return attack.Execute(_battle);
     }
 }

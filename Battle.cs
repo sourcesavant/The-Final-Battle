@@ -8,28 +8,42 @@ public class Battle
     private ComputerPlayer _monstersPlayer;
     private Renderer _renderer;
 
-    public Battle(Party heroes, Party monsters, ComputerPlayer heroesPlayer, ComputerPlayer monstersPlayer, Renderer renderer)
+    public Battle(Party heroes, Party monsters, Renderer renderer)
     {
         _heroesParty = heroes;
         _monstersParty = monsters;
-        _heroesPlayer = heroesPlayer;
-        _monstersPlayer = monstersPlayer;
         _renderer = renderer;
+        _heroesPlayer = new ComputerPlayer(this);
+        _monstersPlayer = new ComputerPlayer(this);
     }
+
+    public void SetHeroesPlayer(ComputerPlayer heroesPlayer) 
+    {
+        _heroesPlayer = heroesPlayer;
+    }
+
+    public void SetMonstersPlayer(ComputerPlayer monstersPlayer)
+    {
+        _monstersPlayer = monstersPlayer;
+    }
+
+    public Party GetPartyFor(Character character) => character is Hero ? _heroesParty : _monstersParty;
+    
+    public Party GetEnemyPartyFor(Character character) => character is Hero ? _monstersParty : _heroesParty;
 
     public void DoRound()
     {
         foreach (Character character in _heroesParty.Characters)
         {
             _renderer.PrintLine($"It is {character.Name}'s turn...");
-            _renderer.PrintLine($"{character.Name} did {character.DoAction(this, _heroesPlayer.PickAction())}");
+            _renderer.PrintLine(_heroesPlayer.PickAction(character));
             _renderer.PrintLine("");
         }
 
         foreach (Character character in _monstersParty.Characters)
         {
             _renderer.PrintLine($"It is {character.Name}'s turn...");
-            _renderer.PrintLine($"{character.Name} did {character.DoAction(this, _monstersPlayer.PickAction())}");
+            _renderer.PrintLine(_monstersPlayer.PickAction(character));
             _renderer.PrintLine("");
         }
     }

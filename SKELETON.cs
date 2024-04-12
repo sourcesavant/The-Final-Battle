@@ -1,6 +1,6 @@
 ﻿namespace TheFinalBattle;
 
-public class SKELETON : Character
+public class SKELETON : Monster
 {
     public override string Name { get; } = "SKELETON";
 }
