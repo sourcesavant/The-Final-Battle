@@ -8,9 +8,4 @@ public class TrueProgrammer : Character
     {
         Name = name;
     }
-    
-    public override string PickAction(Battle battle)
-    {
-        return DoAction(battle, new SkipTurn());
-    }
 }
