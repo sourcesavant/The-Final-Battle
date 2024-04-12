@@ -17,16 +17,16 @@ public class Battle
     {
         foreach (Character character in _heroes.Characters)
         {
-            _renderer.Print($"It is {character.Name}'s turn...");
-            _renderer.Print($"{character.Name} did {character.PickAction(this)}");
-            _renderer.Print("");
+            _renderer.PrintLine($"It is {character.Name}'s turn...");
+            _renderer.PrintLine($"{character.Name} did {character.PickAction(this)}");
+            _renderer.PrintLine("");
         }
 
         foreach (Character character in _monsters.Characters)
         {
-            _renderer.Print($"It is {character.Name}'s turn...");
-            _renderer.Print($"{character.Name} did {character.PickAction(this)}");
-            _renderer.Print("");
+            _renderer.PrintLine($"It is {character.Name}'s turn...");
+            _renderer.PrintLine($"{character.Name} did {character.PickAction(this)}");
+            _renderer.PrintLine("");
         }
     }
 }
