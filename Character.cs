@@ -4,10 +4,10 @@ public abstract class Character
 {
     public abstract string Name { get; }
 
-    public abstract string pickAction(Battle battle);
+    public abstract string PickAction(Battle battle);
 
-    protected string doAction(Battle battle, IAction action)
+    protected string DoAction(Battle battle, IAction action)
     {
-        return action.execute(battle);
+        return action.Execute(battle);
     }
 }

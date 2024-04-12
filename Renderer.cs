@@ -2,7 +2,7 @@
 
 public class Renderer
 {
-    public void print(string text)
+    public void Print(string text)
     {
         Console.WriteLine(text);
     }

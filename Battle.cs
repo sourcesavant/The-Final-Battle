@@ -13,20 +13,20 @@ public class Battle
         _renderer = renderer;
     }
 
-    public void doRound()
+    public void DoRound()
     {
         foreach (Character character in _heroes.Characters)
         {
-            _renderer.print($"It is {character.Name}'s turn...");
-            _renderer.print($"{character.Name} did {character.pickAction(this)}");
-            _renderer.print("");
+            _renderer.Print($"It is {character.Name}'s turn...");
+            _renderer.Print($"{character.Name} did {character.PickAction(this)}");
+            _renderer.Print("");
         }
 
         foreach (Character character in _monsters.Characters)
         {
-            _renderer.print($"It is {character.Name}'s turn...");
-            _renderer.print($"{character.Name} did {character.pickAction(this)}");
-            _renderer.print("");
+            _renderer.Print($"It is {character.Name}'s turn...");
+            _renderer.Print($"{character.Name} did {character.PickAction(this)}");
+            _renderer.Print("");
         }
     }
 }

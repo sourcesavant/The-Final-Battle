@@ -2,6 +2,6 @@
 
 public interface IAction
 {
-    public string execute(Battle battle);
+    public string Execute(Battle battle);
 }
     

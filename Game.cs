@@ -9,7 +9,7 @@ public class Game
         _battle = battle;
     }
 
-    public void run()
+    public void Run()
     {
         while (true) 
         {
