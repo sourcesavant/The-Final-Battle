@@ -1,10 +1,13 @@
 ﻿using TheFinalBattle;
 
-Renderer renderer = new Renderer();
+Renderer renderer = new ();
+UserInput userInput = new(renderer);
+string trueProgrammerName = userInput.GetTrueProgammerName();
+
 
 Party heroes = new();
 Party monsters = new();
-heroes.Add(new SKELETON());
+heroes.Add(new TrueProgrammer(trueProgrammerName));
 monsters.Add(new SKELETON());
 
 Battle battle = new (heroes, monsters, renderer);
