@@ -3,7 +3,7 @@
 public class Battle
 {
     public Party HeroesParty { get; private set; }
-    public Party MonstersParty { get; private set; }
+    public Party MonstersParty { get; set; }
     private ComputerPlayer _heroesPlayer;
     private ComputerPlayer _monstersPlayer;
     private Renderer _renderer;
