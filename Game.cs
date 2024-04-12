@@ -18,15 +18,7 @@ public class Game
         monsters.Add(new SKELETON());
         _battle = new(heroes, monsters, _renderer);
     }
-    
-    private void SetupSecondRound()
-    {
-        Party monsters = new();
-        monsters.Add(new SKELETON());
-        monsters.Add(new SKELETON());
-        _battle.MonstersParty = monsters;
-    }
-   
+
     public void Run()
     {
         // Round 1
@@ -40,9 +32,19 @@ public class Game
         SetupSecondRound();
         GameLoop();
         if (HasHeroWon())
+            _renderer.PrintLine("The heroes won the second round.");
+        else
+            _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
+
+        // Round 3
+        SetupThirdRound();
+        GameLoop();
+        if (HasHeroWon())
             _renderer.PrintLine("The heroes won. The Uncoded One was defeated.");
         else
             _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
+
+        
     }
 
     private bool HasHeroWon() => _battle.HeroesParty.Characters.Count() > 0 && _battle.MonstersParty.Characters.Count() == 0;
@@ -58,5 +60,19 @@ public class Game
                 break;
             Thread.Sleep(500);
         }
+    }
+    private void SetupSecondRound()
+    {
+        Party monsters = new();
+        monsters.Add(new SKELETON());
+        monsters.Add(new SKELETON());
+        _battle.MonstersParty = monsters;
+    }
+
+    private void SetupThirdRound()
+    {
+        Party monsters = new();
+        monsters.Add(new TheUncodedOne());
+        _battle.MonstersParty = monsters;
     }
 }

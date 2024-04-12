@@ -11,6 +11,7 @@ public class ComputerPlayer : Player
         Attack attack = character switch
         {
             SKELETON       => new BoneCrunch(character, target),
+            TheUncodedOne  => new Unraveling(character, target),
             TrueProgrammer => new Punch(character, target),
         };
         return attack.Execute(_battle);
