@@ -13,7 +13,7 @@ public class Game
     {
         while (true) 
         {
-            _battle.doRound();
+            _battle.DoRound();
             Thread.Sleep(500);
         }
     }
