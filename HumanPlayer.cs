@@ -15,12 +15,11 @@ public class HumanPlayer : Player
 
         DisplayMenu(character);
         int menuChoice = _userInput.GetMenuChoice(2);
-        IAction action = (menuChoice, character) switch
+        IAction action = (menuChoice) switch
         {
-            (1, SKELETON)       => new BoneCrunch(character, target),
-            (1, TheUncodedOne)  => new Unraveling(character, target),
-            (1, TrueProgrammer) => new Punch(character, target),
-            (2, _)              => new SkipTurn(character)
+            1  => GetAttackAction(character, target),
+            2  => new SkipTurn(character),
+            _  => throw new NotImplementedException()
         };
               
         return action.Execute(_battle);
@@ -28,13 +27,7 @@ public class HumanPlayer : Player
 
     private void DisplayMenu(Character character)
     {
-        string attackName = character switch
-        {
-            SKELETON => BoneCrunch.AttackName,
-            TheUncodedOne => Unraveling.AttackName,
-            TrueProgrammer => Punch.AttackName,
-        };
-        _renderer.PrintLine($"1 - Standard Attack ({attackName})");
+        _renderer.PrintLine($"1 - Standard Attack ({GetAttackName(character)})");
         _renderer.PrintLine($"2 - Do Nothing");
     }
 }

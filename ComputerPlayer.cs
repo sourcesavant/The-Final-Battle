@@ -8,12 +8,6 @@ public class ComputerPlayer : Player
     {
         Party enemy = _battle.GetEnemyPartyFor(character);
         Character target = enemy.Characters.First();
-        Attack attack = character switch
-        {
-            SKELETON       => new BoneCrunch(character, target),
-            TheUncodedOne  => new Unraveling(character, target),
-            TrueProgrammer => new Punch(character, target),
-        };
-        return attack.Execute(_battle);
+        return GetAttackAction(character, target).Execute(_battle);
     }
 }

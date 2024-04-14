@@ -11,5 +11,21 @@ public abstract class Player
         _renderer = renderer;
     }
 
-    public abstract string PickAction(Character character);
+    public abstract string PickAction (Character character);
+
+    protected IAction GetAttackAction (Character character, Character target) => character switch
+    {
+        SKELETON       => new BoneCrunch(character, target),
+        TheUncodedOne  => new Unraveling(character, target),
+        TrueProgrammer => new Punch(character, target),
+        _              => throw new ArgumentOutOfRangeException()
+    };
+
+    protected string GetAttackName(Character character) =>  character switch
+        {
+            SKELETON       => BoneCrunch.AttackName,
+            TheUncodedOne  => Unraveling.AttackName,
+            TrueProgrammer => Punch.AttackName,
+            _              => throw new ArgumentOutOfRangeException()
+        };
 }
