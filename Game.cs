@@ -17,6 +17,17 @@ public class Game
         heroes.Add(new TrueProgrammer(trueProgrammerName));
         monsters.Add(new SKELETON());
         _battle = new(heroes, monsters, _renderer);
+
+        DisplayGameModeMenu();
+        int menuChoice = _userInput.GetMenuChoice(3);
+        (Player heroesPlayer, Player monstersPlayer) = menuChoice switch
+        {
+            1 => ((Player)new HumanPlayer(_battle, _renderer, _userInput), (Player)new ComputerPlayer(_battle, _renderer)),
+            2 => ((Player)new ComputerPlayer(_battle, _renderer), (Player)new ComputerPlayer(_battle, _renderer)),
+            3 => ((Player)new HumanPlayer(_battle, _renderer, _userInput), (Player)new HumanPlayer(_battle, _renderer, _userInput)),
+        };
+        _battle.SetHeroesPlayer(heroesPlayer);
+        _battle.SetMonstersPlayer(monstersPlayer);
     }
 
     public void Run()
@@ -74,5 +85,13 @@ public class Game
         Party monsters = new();
         monsters.Add(new TheUncodedOne());
         _battle.MonstersParty = monsters;
+    }
+
+    private void DisplayGameModeMenu()
+    {
+        _renderer.PrintLine("Choose your game mode");
+        _renderer.PrintLine($"1 - Human vs. Computer");
+        _renderer.PrintLine($"2 - Computer vs. Computer");
+        _renderer.PrintLine($"3 - Human vs. Human");
     }
 }

@@ -1,8 +1,10 @@
 ﻿namespace TheFinalBattle;
 
 public class BoneCrunch : Attack
-{  
-    public BoneCrunch(Character source, Character target) : base(source, target) { AttackName = "BONE CRUNCH"; }
+{
+    public static new string AttackName { get; } = "BONE CRUNCH";
+
+    public BoneCrunch(Character source, Character target) : base(source, target) { }
 
     protected override int GetDamage()
     {

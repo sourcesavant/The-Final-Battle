@@ -15,6 +15,11 @@ public class UserInput
         return AskForString("Enter the name of the True Programmer ");
     }
 
+    public int GetMenuChoice(int menuItems)
+    {
+        return AskForInt("Choose an option ", 1, menuItems);
+    }
+
     private void Prompt(string prompt)
     {
         _renderer.Print(prompt);
@@ -28,6 +33,22 @@ public class UserInput
             string? input = Console.ReadLine();
             if (input != null)
                 return input;
+        }
+    }
+
+    private int AskForInt(string prompt, int min, int max)
+    {
+        int input;
+        while(true)
+        {
+            Prompt(prompt);
+            string inputString = Console.ReadLine();
+            if (int.TryParse(inputString, out input) && input >= min && input <= max)
+            {
+                return input;
+            }
+            else
+                _renderer.PrintLine($"Enter a number between {min} and {max}");
         }
     }
 }

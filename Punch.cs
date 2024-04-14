@@ -1,8 +1,10 @@
 ﻿namespace TheFinalBattle;
 
 public class Punch : Attack
-{  
-    public Punch(Character source, Character target) : base(source, target) { AttackName = "PUNCH"; }
+{
+    public static new string AttackName { get; } = "PUNCH";
+    
+    public Punch(Character source, Character target) : base(source, target) { }
 
     protected override int GetDamage()
     {

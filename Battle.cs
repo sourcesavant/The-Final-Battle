@@ -4,25 +4,23 @@ public class Battle
 {
     public Party HeroesParty { get; private set; }
     public Party MonstersParty { get; set; }
-    private ComputerPlayer _heroesPlayer;
-    private ComputerPlayer _monstersPlayer;
+    private Player? _heroesPlayer;
+    private Player? _monstersPlayer;
     private Renderer _renderer;
 
     public Battle(Party heroes, Party monsters, Renderer renderer)
     {
         HeroesParty = heroes;
         MonstersParty = monsters;
-        _renderer = renderer;
-        _heroesPlayer = new ComputerPlayer(this);
-        _monstersPlayer = new ComputerPlayer(this);
+        _renderer = renderer;        
     }
 
-    public void SetHeroesPlayer(ComputerPlayer heroesPlayer) 
+    public void SetHeroesPlayer(Player heroesPlayer) 
     {
         _heroesPlayer = heroesPlayer;
     }
 
-    public void SetMonstersPlayer(ComputerPlayer monstersPlayer)
+    public void SetMonstersPlayer(Player monstersPlayer)
     {
         _monstersPlayer = monstersPlayer;
     }
@@ -33,6 +31,9 @@ public class Battle
 
     public void DoRound()
     {
+        if (_heroesPlayer == null || _monstersPlayer == null)
+            throw new InvalidOperationException();
+
         foreach (Character character in HeroesParty.Characters)
         {
             if (GetEnemyPartyFor(character).Characters.Count() == 0)

@@ -2,7 +2,7 @@
 
 public class ComputerPlayer : Player
 {
-    public ComputerPlayer(Battle battle) : base(battle) { }
+    public ComputerPlayer(Battle battle, Renderer renderer) : base(battle, renderer) { }
 
     public override string PickAction(Character character)
     {

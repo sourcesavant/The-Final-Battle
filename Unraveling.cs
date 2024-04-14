@@ -1,8 +1,10 @@
 ﻿namespace TheFinalBattle;
 
 public class Unraveling : Attack
-{  
-    public Unraveling(Character source, Character target) : base(source, target) { AttackName = "UNRAVELING ATTACK"; }
+{
+    public static new string AttackName { get; } = "UNRAVELING ATTACK";
+
+    public Unraveling(Character source, Character target) : base(source, target) { }
 
     protected override int GetDamage()
     {
