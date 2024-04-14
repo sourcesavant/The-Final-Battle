@@ -6,7 +6,7 @@ public class Punch : Attack
     
     public Punch(Character source, Character target) : base(source, target) { }
 
-    protected override int GetDamage()
+    protected override int CalculateDamage()
     {
         return 1;
     }

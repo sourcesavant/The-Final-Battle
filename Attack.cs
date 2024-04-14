@@ -5,8 +5,8 @@ namespace TheFinalBattle;
 public abstract class Attack : IAction
 {
     public static string AttackName { get; } = "ATTACK";
-    private Character _source;
-    private Character _target;
+    private readonly Character _source;
+    private readonly Character _target;
 
     public Attack(Character source, Character target)
     {
@@ -18,7 +18,7 @@ public abstract class Attack : IAction
     {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"{_source.Name} used {AttackName} on {_target.Name}.");
-        int dmg = GetDamage();
+        int dmg = CalculateDamage();
         _target.HP -= dmg;
         if (_target.HP == 0)
         {
@@ -31,5 +31,5 @@ public abstract class Attack : IAction
         return sb.ToString();
     }
 
-    protected abstract int GetDamage();
+    protected abstract int CalculateDamage();
 }

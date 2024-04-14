@@ -19,7 +19,7 @@ public class HumanPlayer : Player
         {
             1  => GetAttackAction(character, target),
             2  => new SkipTurn(character),
-            _  => throw new NotImplementedException()
+            _  => throw new InvalidOperationException()
         };
               
         return action.Execute(_battle);

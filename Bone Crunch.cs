@@ -6,7 +6,7 @@ public class BoneCrunch : Attack
 
     public BoneCrunch(Character source, Character target) : base(source, target) { }
 
-    protected override int GetDamage()
+    protected override int CalculateDamage()
     {
         Random random = new Random();
         return random.Next(2);
