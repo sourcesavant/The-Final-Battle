@@ -33,24 +33,19 @@ public class Battle
     {
         if (_heroesPlayer == null || _monstersPlayer == null)
             throw new InvalidOperationException();
+        DoRoundOfPlayer(_heroesPlayer, HeroesParty);
+        DoRoundOfPlayer(_monstersPlayer, MonstersParty);
+    }
 
-        foreach (Character character in HeroesParty.Characters)
+    private void DoRoundOfPlayer(Player player, Party party)
+    {
+        foreach (Character character in party.Characters)
         {
             if (GetEnemyPartyFor(character).Characters.Count() == 0)
                 break;
             _renderer.PrintStatus(HeroesParty, MonstersParty);
             _renderer.PrintLine($"It is {character.Name}'s turn...");
-            _renderer.PrintLine(_heroesPlayer.PickAction(character));
-            _renderer.PrintLine("");
-        }
-
-        foreach (Character character in MonstersParty.Characters)
-        {
-            if (GetEnemyPartyFor(character).Characters.Count() == 0)
-                break;
-            _renderer.PrintStatus(HeroesParty, MonstersParty);
-            _renderer.PrintLine($"It is {character.Name}'s turn...");
-            _renderer.PrintLine(_monstersPlayer.PickAction(character));
+            _renderer.PrintLine(player.PickAction(character));
             _renderer.PrintLine("");
         }
     }
