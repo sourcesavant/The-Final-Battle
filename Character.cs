@@ -23,4 +23,6 @@ public abstract class Character
     {
         return action.Execute(battle);
     }
+
+    public override string ToString() => $"{Name} ( {HP}/{MaxHP} )";
 }

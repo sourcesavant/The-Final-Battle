@@ -25,6 +25,7 @@ public class Game
             1 => ((Player)new HumanPlayer(_battle, _renderer, _userInput), (Player)new ComputerPlayer(_battle, _renderer)),
             2 => ((Player)new ComputerPlayer(_battle, _renderer), (Player)new ComputerPlayer(_battle, _renderer)),
             3 => ((Player)new HumanPlayer(_battle, _renderer, _userInput), (Player)new HumanPlayer(_battle, _renderer, _userInput)),
+            _ => throw new InvalidOperationException()
         };
         _battle.SetHeroesPlayer(heroesPlayer);
         _battle.SetMonstersPlayer(monstersPlayer);

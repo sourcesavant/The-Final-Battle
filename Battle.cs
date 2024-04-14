@@ -38,6 +38,7 @@ public class Battle
         {
             if (GetEnemyPartyFor(character).Characters.Count() == 0)
                 break;
+            _renderer.PrintStatus(HeroesParty, MonstersParty);
             _renderer.PrintLine($"It is {character.Name}'s turn...");
             _renderer.PrintLine(_heroesPlayer.PickAction(character));
             _renderer.PrintLine("");
@@ -47,6 +48,7 @@ public class Battle
         {
             if (GetEnemyPartyFor(character).Characters.Count() == 0)
                 break;
+            _renderer.PrintStatus(HeroesParty, MonstersParty);
             _renderer.PrintLine($"It is {character.Name}'s turn...");
             _renderer.PrintLine(_monstersPlayer.PickAction(character));
             _renderer.PrintLine("");
