@@ -16,16 +16,25 @@ public class Renderer
     {
         Console.WriteLine("============================================= BATTLE ============================================");
         if (heroes != null)
-        {
-            foreach (Character character in heroes.Characters)
-                Console.WriteLine(character);
-        }
+            PrintPartyStatus(heroes);
         Console.WriteLine("---------------------------------------------- VS -----------------------------------------------");
         if (monsters != null)
-        {
-            foreach (Character character in monsters.Characters)
-                Console.WriteLine(character);
-        }
+            PrintPartyStatus(monsters);
         Console.WriteLine("=================================================================================================");
+    }
+
+    private void PrintPartyStatus (Party party)
+    {
+        foreach (Character character in party.Characters)
+            Console.WriteLine(character);
+        Console.WriteLine("Items:");
+        foreach (Item item in party.Items)
+            Console.WriteLine(item.Name);
+    }
+
+    public void PrintMenu(List<MenuItem> menu)
+    {
+        for (int i = 0; i < menu.Count; i++)
+            Console.WriteLine($"{i+1} - {menu[i].Description}");      
     }
 }

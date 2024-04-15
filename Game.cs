@@ -14,8 +14,12 @@ public class Game
         Party heroes = new();
         Party monsters = new();
         string trueProgrammerName = _userInput.GetTrueProgammerName();
-        heroes.Add(new TrueProgrammer(trueProgrammerName));
-        monsters.Add(new SKELETON());
+        heroes.AddCharacter(new TrueProgrammer(trueProgrammerName));
+        heroes.AddItem(new HealthPotion());
+        heroes.AddItem(new HealthPotion());
+        heroes.AddItem(new HealthPotion());
+        monsters.AddCharacter(new SKELETON());
+        monsters.AddItem(new HealthPotion());
         _battle = new(heroes, monsters, _renderer);
 
         DisplayGameModeMenu();
@@ -76,15 +80,17 @@ public class Game
     private void SetupSecondRound()
     {
         Party monsters = new();
-        monsters.Add(new SKELETON());
-        monsters.Add(new SKELETON());
+        monsters.AddCharacter(new SKELETON());
+        monsters.AddCharacter(new SKELETON());
+        monsters.AddItem(new HealthPotion());
         _battle.MonstersParty = monsters;
     }
 
     private void SetupThirdRound()
     {
         Party monsters = new();
-        monsters.Add(new TheUncodedOne());
+        monsters.AddCharacter(new TheUncodedOne());
+        monsters.AddItem(new HealthPotion());
         _battle.MonstersParty = monsters;
     }
 

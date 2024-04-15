@@ -4,5 +4,9 @@ public class Party
 {
     public List<Character> Characters { get; } = new List<Character>();
 
-    public void Add(Character character) => Characters.Add(character);
+    public List<Item> Items { get; } = new List<Item>();
+
+    public void AddCharacter(Character character) => Characters.Add(character);
+
+    public void AddItem(Item item) => Items.Add(item);
 }

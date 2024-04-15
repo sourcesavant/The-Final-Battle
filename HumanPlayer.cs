@@ -13,21 +13,29 @@ public class HumanPlayer : Player
         Party enemy = _battle.GetEnemyPartyFor(character);
         Character target = enemy.Characters.First();
 
-        DisplayMenu(character);
-        int menuChoice = _userInput.GetMenuChoice(2);
-        IAction action = (menuChoice) switch
-        {
-            1  => GetAttackAction(character, target),
-            2  => new SkipTurn(character),
-            _  => throw new InvalidOperationException()
-        };
-              
-        return action.Execute(_battle);
+        List<MenuItem> menu = BuildMenu(character);
+        _renderer.PrintMenu(menu);
+
+       int menuChoice = _userInput.GetMenuChoice(menu.Count());
+                      
+       return menu[menuChoice-1].Action.Execute(_battle);
     }
 
-    private void DisplayMenu(Character character)
+      private List<MenuItem> BuildMenu(Character character)
     {
-        _renderer.PrintLine($"1 - Standard Attack ({GetAttackName(character)})");
-        _renderer.PrintLine($"2 - Do Nothing");
+        Party enemy = _battle.GetEnemyPartyFor(character);
+        Character target = enemy.Characters.First();
+
+        List<MenuItem> menu = new List<MenuItem>();
+        menu.Add(new MenuItem($"Standard Attack ({GetAttackName(character)})", GetAttackAction(character, target)));
+                
+        if (_battle.GetPartyFor(character).Items.Any(item => item.GetType() == typeof(HealthPotion)))
+        {
+            menu.Add(new MenuItem($"Use Health Potion", new UseItem(new HealthPotion(), character)));
+        }
+
+        menu.Add(new MenuItem("Do Nothing", new SkipTurn(character)));
+        
+        return menu;
     }
 }

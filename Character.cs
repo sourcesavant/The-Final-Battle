@@ -9,9 +9,15 @@ public abstract class Character
     public int HP
     { 
         get => _HP;
-        set => _HP = value < 0
-                   ? 0
-                   : value;
+        set
+        {
+            if (value < 0)
+                _HP = 0;
+            else if (value > MaxHP)
+                _HP = MaxHP;
+            else
+                _HP = value;
+        }
     }
 
     public Character()
