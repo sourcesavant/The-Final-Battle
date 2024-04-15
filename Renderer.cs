@@ -26,9 +26,16 @@ public class Renderer
     private void PrintPartyStatus (Party party)
     {
         foreach (Character character in party.Characters)
+        {
             Console.WriteLine(character);
+            if (character.Gear != null)
+                Console.WriteLine($"Equipped gear: {character.Gear.Name}");
+        }
         Console.WriteLine("Items:");
         foreach (Item item in party.Items)
+            Console.WriteLine(item.Name);
+        Console.WriteLine("Unequipped Gear:");
+        foreach (Gear item in party.Gear)
             Console.WriteLine(item.Name);
     }
 

@@ -14,11 +14,16 @@ public class Game
         Party heroes = new();
         Party monsters = new();
         string trueProgrammerName = _userInput.GetTrueProgammerName();
-        heroes.AddCharacter(new TrueProgrammer(trueProgrammerName));
+        Character trueProgrammer = new TrueProgrammer(trueProgrammerName);
+        trueProgrammer.Gear = new Sword();
+        heroes.AddCharacter(trueProgrammer);
+
         heroes.AddItem(new HealthPotion());
         heroes.AddItem(new HealthPotion());
         heroes.AddItem(new HealthPotion());
-        monsters.AddCharacter(new SKELETON());
+        SKELETON skeleton = new SKELETON();
+        skeleton.Gear = new Dagger();
+        monsters.AddCharacter(skeleton);
         monsters.AddItem(new HealthPotion());
         _battle = new(heroes, monsters, _renderer);
 
@@ -83,6 +88,8 @@ public class Game
         monsters.AddCharacter(new SKELETON());
         monsters.AddCharacter(new SKELETON());
         monsters.AddItem(new HealthPotion());
+        monsters.AddGear(new Dagger());
+        monsters.AddGear(new Dagger());
         _battle.MonstersParty = monsters;
     }
 

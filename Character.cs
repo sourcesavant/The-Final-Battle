@@ -5,6 +5,8 @@ public abstract class Character
     public abstract string Name { get; }
     public abstract int MaxHP { get; }
 
+    public Gear? Gear { get; set; } = null;
+
     private int _HP;
     public int HP
     { 

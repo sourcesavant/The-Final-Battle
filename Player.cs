@@ -13,7 +13,7 @@ public abstract class Player
 
     public abstract string PickAction (Character character);
 
-    protected IAction GetAttackAction (Character character, Character target) => character switch
+    protected IAction GetStandardAttackAction (Character character, Character target) => character switch
     {
         SKELETON       => new BoneCrunch(character, target),
         TheUncodedOne  => new Unraveling(character, target),
@@ -21,11 +21,25 @@ public abstract class Player
         _              => throw new ArgumentOutOfRangeException()
     };
 
-    protected string GetAttackName(Character character) =>  character switch
+    protected IAction GetWeaponAttackAction(Character character, Character target) => character.Gear switch
+    {
+        Dagger => new Stab(character, target),
+        Sword  => new Slash(character, target),
+        _      => throw new InvalidOperationException()
+    };
+
+    protected string GetStandardAttackName(Character character, Character target) =>  character switch
         {
-            SKELETON       => BoneCrunch.AttackName,
-            TheUncodedOne  => Unraveling.AttackName,
-            TrueProgrammer => Punch.AttackName,
+            SKELETON       => new BoneCrunch(character, target).AttackName,
+            TheUncodedOne  => new Unraveling(character, target).AttackName,
+            TrueProgrammer => new Punch(character, target).AttackName,
             _              => throw new ArgumentOutOfRangeException()
         };
+
+    protected string GetWeaponAttackName(Character character, Character target) => character.Gear switch
+    {
+        Dagger => new Stab(character, target).AttackName,
+        Sword  => new Slash(character, target).AttackName,
+        _ => throw new InvalidOperationException()
+    };
 }

@@ -2,7 +2,7 @@
 
 public class BoneCrunch : Attack
 {
-    public static new string AttackName { get; } = "BONE CRUNCH";
+    public override string AttackName { get; } = "BONE CRUNCH";
 
     public BoneCrunch(Character source, Character target) : base(source, target) { }
 

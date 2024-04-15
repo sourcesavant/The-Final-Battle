@@ -27,11 +27,22 @@ public class HumanPlayer : Player
         Character target = enemy.Characters.First();
 
         List<MenuItem> menu = new List<MenuItem>();
-        menu.Add(new MenuItem($"Standard Attack ({GetAttackName(character)})", GetAttackAction(character, target)));
+        menu.Add(new MenuItem($"Standard Attack ({GetStandardAttackName(character, target)})", GetStandardAttackAction(character, target)));
+
+        if (character.Gear != null)
+            menu.Add(new MenuItem($"Weapon Attack ({GetWeaponAttackName(character, target)})", GetWeaponAttackAction(character, target)));
                 
         if (_battle.GetPartyFor(character).Items.Any(item => item.GetType() == typeof(HealthPotion)))
         {
             menu.Add(new MenuItem($"Use Health Potion", new UseItem(new HealthPotion(), character)));
+        }
+
+        if (_battle.GetPartyFor(character).Gear.Count > 0)
+        {
+            foreach (Gear gear in _battle.GetPartyFor(character).Gear) 
+            {
+                menu.Add(new MenuItem($"Equip Gear - {gear.Name}", new EquipGear(character, gear)));
+            }
         }
 
         menu.Add(new MenuItem("Do Nothing", new SkipTurn(character)));

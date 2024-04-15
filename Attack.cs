@@ -4,7 +4,7 @@ namespace TheFinalBattle;
 
 public abstract class Attack : IAction
 {
-    public static string AttackName { get; } = "ATTACK";
+    public virtual string AttackName { get; } = "ATTACK";
     private readonly Character _source;
     private readonly Character _target;
 

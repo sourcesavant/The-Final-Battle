@@ -2,7 +2,7 @@
 
 public class Unraveling : Attack
 {
-    public static new string AttackName { get; } = "UNRAVELING ATTACK";
+    public override string AttackName { get; } = "UNRAVELING ATTACK";
 
     public Unraveling(Character source, Character target) : base(source, target) { }
 
