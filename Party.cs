@@ -13,4 +13,10 @@ public class Party
     public void AddItem(Item item) => Items.Add(item);
 
     public void AddGear(Gear item) => Gear.Add(item);
+
+    public bool IsDead() => Characters.Count == 0;
+
+    public bool HasItems() => Items.Count > 0;
+
+    public bool HasGear() => Gear.Count > 0;
 }

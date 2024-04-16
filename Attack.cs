@@ -18,12 +18,14 @@ public abstract class Attack : IAction
     {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"{_source.Name} used {AttackName} on {_target.Name}.");
-        int dmg = CalculateDamage();
-        _target.HP -= dmg;
-        if (_target.HP == 0)
+
+        _target.HP -= CalculateDamage();
+
+        if (_target.IsDead())
             sb = HandleKill(battle, sb);
         else
             sb.AppendLine($"{_target.Name} is now at {_target.HP}/{_target.MaxHP} HP.");
+       
         return sb.ToString();
     }
 
@@ -35,7 +37,7 @@ public abstract class Attack : IAction
         Party enemyParty = battle.GetPartyFor(_target);
         enemyParty.Characters.Remove(_target);
 
-        if (enemyParty.Characters.Count != 0)
+        if (!enemyParty.IsDead())
             return sb;
 
         sb = TransferGearAfterPartyKill(battle, sb, enemyParty);
@@ -45,7 +47,7 @@ public abstract class Attack : IAction
 
     private StringBuilder TransferItemsAfterPartyKill(Battle battle, StringBuilder sb, Party party)
     {
-        if (party.Items.Count > 0)
+        if (party.HasItems())
         {
             sb.Append("Items acquired ");
             foreach (Item item in party.Items)
@@ -59,7 +61,7 @@ public abstract class Attack : IAction
 
     private StringBuilder TransferGearAfterPartyKill(Battle battle, StringBuilder sb, Party party)
     {
-        if (party.Gear.Count > 0)
+        if (party.HasGear())
         {
             sb.Append("Gear acquired ");
             foreach (Gear gear in party.Gear)
@@ -74,7 +76,7 @@ public abstract class Attack : IAction
 
     private StringBuilder TransferGearAfterCharacterKill(Battle battle, StringBuilder sb)
     {
-        if (_target.Gear != null)
+        if (_target.HasGear())
         {
             battle.GetPartyFor(_source).Gear.Add(_target.Gear);
             sb.AppendLine($"{_source.Name} aquired {_target.Gear.Name}.");

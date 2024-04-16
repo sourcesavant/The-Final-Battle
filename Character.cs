@@ -27,6 +27,10 @@ public abstract class Character
         _HP = MaxHP;
     }
 
+    public bool IsDead() => _HP == 0;
+
+    public bool HasGear() => Gear != null;
+
     public string DoAction(Battle battle, IAction action)
     {
         return action.Execute(battle);
