@@ -7,6 +7,8 @@ public abstract class Character
 
     public Gear? Gear { get; set; } = null;
 
+    public DefensiveAttackModifier? DefensiveAttackModifier { get; init; }
+
     private int _HP;
     public int HP
     { 

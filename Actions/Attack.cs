@@ -33,7 +33,7 @@ public abstract class Attack : IAction
         }
         else
         {
-            _target.HP -= CalculateDamage();
+            HandleDamage(sb);
             if (_target.IsDead())
                 sb = HandleKill(battle, sb);
             else
@@ -41,6 +41,16 @@ public abstract class Attack : IAction
         }
 
         return sb;
+    }
+
+    private void HandleDamage(StringBuilder sb)
+    {
+        int dmg = CalculateDamage();
+        int modifiedDmg = dmg - GetDefensiveAttackModifier();
+        if (modifiedDmg != dmg)
+            sb.AppendLine($"{_target.DefensiveAttackModifier.Name} reduced the attack by {dmg - modifiedDmg} point(s).");
+
+        _target.HP -= modifiedDmg;
     }
 
     private StringBuilder HandleKill(Battle battle, StringBuilder sb)
@@ -58,6 +68,8 @@ public abstract class Attack : IAction
         sb = TransferItemsAfterPartyKill(battle, sb, enemyParty);
         return sb;
     }
+
+    private int GetDefensiveAttackModifier() => _target.DefensiveAttackModifier != null ? _target.DefensiveAttackModifier.Modifier : 0;
 
     private StringBuilder TransferItemsAfterPartyKill(Battle battle, StringBuilder sb, Party party)
     {

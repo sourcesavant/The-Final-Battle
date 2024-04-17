@@ -16,6 +16,7 @@ public abstract class Player
     protected IAction GetStandardAttackAction (Character character, Character target) => character switch
     {
         SKELETON                      => new BoneCrunch(character, target),
+        StoneAmarok                   => new Bite(character, target),
         TheUncodedOne                 => new Unraveling(character, target),
         TrueProgrammer or VinFletcher => new Punch(character, target),
         _                             => throw new ArgumentOutOfRangeException()
@@ -31,6 +32,7 @@ public abstract class Player
 
     protected string GetStandardAttackName(Character character, Character target) =>  character switch
         {
+            StoneAmarok                   => new Bite(character, target).AttackName,
             SKELETON                      => new BoneCrunch(character, target).AttackName,
             TheUncodedOne                 => new Unraveling(character, target).AttackName,
             TrueProgrammer or VinFletcher => new Punch(character, target).AttackName,
