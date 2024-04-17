@@ -33,39 +33,31 @@ public class Game
 
     public void Run()
     {
-        // Round 1
-        SetupFirstRound();
-        GameLoop();
-        if (HasHeroWon())
-            _renderer.PrintLine("The heroes won the first round.");
-        else
-            _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
+        RunBattlesAgainstMonsters();
+        RunBattleAgainstUncodedOne();
+    }
 
-        // Round 2
-        SetupSecondRound();
-        GameLoop();
-        if (HasHeroWon())
-            _renderer.PrintLine("The heroes won the second round.");
-        else
-            _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
-
-        // Round 3
-        SetupThirdRound();
-        GameLoop();
-        if (HasHeroWon())
-            _renderer.PrintLine("The heroes won the second round.");
-        else
-            _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
-
-        // Round 4
-        SetupFourthRound();
+    private void RunBattleAgainstUncodedOne()
+    {
+        SetupFinalRound();
         GameLoop();
         if (HasHeroWon())
             _renderer.PrintLine("The heroes won. The Uncoded One was defeated.");
         else
             _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
+    }
 
-        
+    private void RunBattlesAgainstMonsters()
+    {
+        for (int i = 1; i <= 3; i++)
+        {
+            SetupRound(i);
+            GameLoop();
+            if (HasHeroWon())
+                _renderer.PrintLine("The heroes won this round.");
+            else
+                _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
+        }
     }
 
     private bool HasHeroWon()
@@ -111,6 +103,27 @@ public class Game
         _battle.HeroesParty = heroes;
     }
 
+    private void SetupRound(int round)
+    {
+        switch (round)
+        {
+            case 1:
+                SetupFirstRound();
+                break;
+            case 2:
+                SetupSecondRound();
+                break;
+            case 3:
+                SetupThirdRound();
+                break;
+            case 4:
+                SetupFinalRound();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
     private void SetupFirstRound()
     {
         Party monsters = new();
@@ -140,7 +153,7 @@ public class Game
         _battle.MonstersParty = monsters;
     }
 
-    private void SetupFourthRound()
+    private void SetupFinalRound()
     {
         Party monsters = new();
         monsters.AddCharacter(new TheUncodedOne());
