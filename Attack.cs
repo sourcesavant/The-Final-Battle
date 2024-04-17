@@ -34,7 +34,7 @@ public abstract class Attack : IAction
         sb.AppendLine($"{_target.Name} has been defeated!");
         sb = TransferGearAfterCharacterKill(battle, sb);
 
-        Party enemyParty = battle.GetPartyFor(_target);
+        Party enemyParty = battle.GetPartyForCharacter(_target);
         enemyParty.Characters.Remove(_target);
 
         if (!enemyParty.IsDead())
@@ -52,7 +52,7 @@ public abstract class Attack : IAction
             sb.Append("Items acquired ");
             foreach (Item item in party.Items)
             {
-                battle.GetPartyFor(_source).Items.Add(item);
+                battle.GetPartyForCharacter(_source).Items.Add(item);
                 sb.Append($"{item.Name}");
             }
         }
@@ -67,7 +67,7 @@ public abstract class Attack : IAction
             foreach (Gear gear in party.Gear)
             {
                 sb.Append($"{gear.Name}");
-                battle.GetPartyFor(_source).Gear.Add(gear);
+                battle.GetPartyForCharacter(_source).Gear.Add(gear);
             }
             sb.AppendLine();
         }
@@ -78,7 +78,7 @@ public abstract class Attack : IAction
     {
         if (_target.HasGear())
         {
-            battle.GetPartyFor(_source).Gear.Add(_target.Gear);
+            battle.GetPartyForCharacter(_source).Gear.Add(_target.Gear);
             sb.AppendLine($"{_source.Name} aquired {_target.Gear.Name}.");
         }
         return sb;

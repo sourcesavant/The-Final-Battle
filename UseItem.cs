@@ -15,10 +15,10 @@ public class UseItem : IAction
     {
         if (_item is HealthPotion)
         {
-            if (!battle.GetPartyFor(_user).Items.Contains(_item))
+            if (!battle.GetPartyForCharacter(_user).Items.Contains(_item))
                 throw new InvalidOperationException();
             _user.HP += 10;
-            battle.GetPartyFor(_user).Items.Remove(_item);
+            battle.GetPartyForCharacter(_user).Items.Remove(_item);
         }
         return $"{_user.Name} used a Health Potion";
     }

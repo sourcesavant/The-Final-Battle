@@ -10,7 +10,7 @@ public class HumanPlayer : Player
 
     public override string PickAction(Character character)
     {
-        Party enemy = _battle.GetEnemyPartyFor(character);
+        Party enemy = _battle.GetEnemyPartyForCharacter(character);
         Character target = enemy.Characters.First();
 
         List<MenuItem> menu = BuildMenu(character);
@@ -23,7 +23,7 @@ public class HumanPlayer : Player
 
       private List<MenuItem> BuildMenu(Character character)
     {
-        Party enemy = _battle.GetEnemyPartyFor(character);
+        Party enemy = _battle.GetEnemyPartyForCharacter(character);
         Character target = enemy.Characters.First();
 
         List<MenuItem> menu = new List<MenuItem>();
@@ -32,14 +32,14 @@ public class HumanPlayer : Player
         if (character.Gear != null)
             menu.Add(new MenuItem($"Weapon Attack ({GetWeaponAttackName(character, target)})", GetWeaponAttackAction(character, target)));
                 
-        if (_battle.GetPartyFor(character).Items.Any(item => item.GetType() == typeof(HealthPotion)))
+        if (_battle.GetPartyForCharacter(character).Items.Any(item => item.GetType() == typeof(HealthPotion)))
         {
             menu.Add(new MenuItem($"Use Health Potion", new UseItem(new HealthPotion(), character)));
         }
 
-        if (_battle.GetPartyFor(character).Gear.Count > 0)
+        if (_battle.GetPartyForCharacter(character).Gear.Count > 0)
         {
-            foreach (Gear gear in _battle.GetPartyFor(character).Gear) 
+            foreach (Gear gear in _battle.GetPartyForCharacter(character).Gear) 
             {
                 menu.Add(new MenuItem($"Equip Gear - {gear.Name}", new EquipGear(character, gear)));
             }

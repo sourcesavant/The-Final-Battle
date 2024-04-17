@@ -15,10 +15,10 @@ public class EquipGear : IAction
     {
         if (_character.Gear != null)
         {
-            battle.GetPartyFor(_character).Gear.Add(_character.Gear);
+            battle.GetPartyForCharacter(_character).Gear.Add(_character.Gear);
         }
         _character.Gear = _gear;
-        battle.GetPartyFor(_character).Gear.Remove(_gear);
+        battle.GetPartyForCharacter(_character).Gear.Remove(_gear);
         return $"{_character.Name} equipped {_gear.Name}.";
     }
 }

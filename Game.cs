@@ -10,23 +10,14 @@ public class Game
     {
         _renderer = renderer;
         _userInput = userInput;
+        _battle = new(_renderer);
+        
+        SetupHeroParty();
+        SetupGameMode();
+    }
 
-        Party heroes = new();
-        Party monsters = new();
-        string trueProgrammerName = _userInput.GetTrueProgammerName();
-        Character trueProgrammer = new TrueProgrammer(trueProgrammerName);
-        trueProgrammer.Gear = new Sword();
-        heroes.AddCharacter(trueProgrammer);
-
-        heroes.AddItem(new HealthPotion());
-        heroes.AddItem(new HealthPotion());
-        heroes.AddItem(new HealthPotion());
-        SKELETON skeleton = new SKELETON();
-        skeleton.Gear = new Dagger();
-        monsters.AddCharacter(skeleton);
-        monsters.AddItem(new HealthPotion());
-        _battle = new(heroes, monsters, _renderer);
-
+    private void SetupGameMode()
+    {
         DisplayGameModeMenu();
         int menuChoice = _userInput.GetMenuChoice(3);
         (Player heroesPlayer, Player monstersPlayer) = menuChoice switch
@@ -43,6 +34,7 @@ public class Game
     public void Run()
     {
         // Round 1
+        SetupFirstRound();
         GameLoop();
         if (HasHeroWon())
             _renderer.PrintLine("The heroes won the first round.");
@@ -68,20 +60,53 @@ public class Game
         
     }
 
-    private bool HasHeroWon() => _battle.HeroesParty.Characters.Count() > 0 && _battle.MonstersParty.Characters.Count() == 0;
+    private bool HasHeroWon()
+    {
+        if (_battle.HeroesParty == null || _battle.MonstersParty == null)
+            throw new InvalidOperationException();
+        return !_battle.HeroesParty.IsDead() && _battle.MonstersParty.IsDead();
+    }
+    
 
-    private bool HasHeroLost() => _battle.HeroesParty.Characters.Count() == 0 && _battle.MonstersParty.Characters.Count() > 0;
+    private bool HasHeroLost()
+    {
+        if (_battle.HeroesParty == null || _battle.MonstersParty == null)
+            throw new InvalidOperationException();
+        return _battle.HeroesParty.IsDead() && !_battle.MonstersParty.IsDead();
+    }
 
     private void GameLoop()
     {
-        while (true)
+        while (!HasHeroWon() && !HasHeroLost())
         {
             _battle.DoRound();
-            if (HasHeroWon() || HasHeroLost())
-                break;
             Thread.Sleep(500);
         }
     }
+
+    private void SetupHeroParty()
+    {
+        Party heroes = new();
+        string trueProgrammerName = _userInput.GetTrueProgammerName();
+        Character trueProgrammer = new TrueProgrammer(trueProgrammerName);
+        trueProgrammer.Gear = new Sword();
+        heroes.AddCharacter(trueProgrammer);
+        heroes.AddItem(new HealthPotion());
+        heroes.AddItem(new HealthPotion());
+        heroes.AddItem(new HealthPotion());
+        _battle.HeroesParty = heroes;
+    }
+
+    private void SetupFirstRound()
+    {
+        Party monsters = new();
+        SKELETON skeleton = new SKELETON();
+        skeleton.Gear = new Dagger();
+        monsters.AddCharacter(skeleton);
+        monsters.AddItem(new HealthPotion());
+        _battle.MonstersParty = monsters;
+    }
+    
     private void SetupSecondRound()
     {
         Party monsters = new();
