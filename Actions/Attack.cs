@@ -5,6 +5,7 @@ namespace TheFinalBattle;
 public abstract class Attack : IAction
 {
     public virtual string AttackName { get; } = "ATTACK";
+    protected virtual double _hitChance { get;  } = 1;
     private readonly Character _source;
     private readonly Character _target;
 
@@ -17,16 +18,29 @@ public abstract class Attack : IAction
     public string Execute(Battle battle)
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"{_source.Name} used {AttackName} on {_target.Name}.");
+        sb = HandleAttack(battle, sb);
 
-        _target.HP -= CalculateDamage();
-
-        if (_target.IsDead())
-            sb = HandleKill(battle, sb);
-        else
-            sb.AppendLine($"{_target.Name} is now at {_target.HP}/{_target.MaxHP} HP.");
-       
         return sb.ToString();
+    }
+
+    private StringBuilder HandleAttack(Battle battle, StringBuilder sb)
+    {
+        sb.AppendLine($"{_source.Name} used {AttackName} on {_target.Name}.");
+        
+        if (!IsAttackSuccessful())
+        {
+            sb.AppendLine($"{_source.Name} MISSED!");
+        }
+        else
+        {
+            _target.HP -= CalculateDamage();
+            if (_target.IsDead())
+                sb = HandleKill(battle, sb);
+            else
+                sb.AppendLine($"{_target.Name} is now at {_target.HP}/{_target.MaxHP} HP.");
+        }
+
+        return sb;
     }
 
     private StringBuilder HandleKill(Battle battle, StringBuilder sb)
@@ -83,6 +97,8 @@ public abstract class Attack : IAction
         }
         return sb;
     }
+
+    protected bool IsAttackSuccessful() => new Random().NextDouble() < _hitChance;
 
     protected abstract int CalculateDamage();
 }

@@ -87,10 +87,16 @@ public class Game
     private void SetupHeroParty()
     {
         Party heroes = new();
+        
         string trueProgrammerName = _userInput.GetTrueProgammerName();
         Character trueProgrammer = new TrueProgrammer(trueProgrammerName);
         trueProgrammer.Gear = new Sword();
         heroes.AddCharacter(trueProgrammer);
+
+        Character vinFletcher = new VinFletcher();
+        vinFletcher.Gear = new VinsBow();
+        heroes.AddCharacter(vinFletcher);
+
         heroes.AddItem(new HealthPotion());
         heroes.AddItem(new HealthPotion());
         heroes.AddItem(new HealthPotion());

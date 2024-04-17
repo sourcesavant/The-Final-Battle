@@ -15,31 +15,33 @@ public abstract class Player
 
     protected IAction GetStandardAttackAction (Character character, Character target) => character switch
     {
-        SKELETON       => new BoneCrunch(character, target),
-        TheUncodedOne  => new Unraveling(character, target),
-        TrueProgrammer => new Punch(character, target),
-        _              => throw new ArgumentOutOfRangeException()
+        SKELETON                      => new BoneCrunch(character, target),
+        TheUncodedOne                 => new Unraveling(character, target),
+        TrueProgrammer or VinFletcher => new Punch(character, target),
+        _                             => throw new ArgumentOutOfRangeException()
     };
 
     protected IAction GetWeaponAttackAction(Character character, Character target) => character.Gear switch
     {
-        Dagger => new Stab(character, target),
-        Sword  => new Slash(character, target),
-        _      => throw new InvalidOperationException()
+        Dagger  => new Stab(character, target),
+        Sword   => new Slash(character, target),
+        VinsBow => new QuickShot(character,  target),
+        _       => throw new InvalidOperationException()
     };
 
     protected string GetStandardAttackName(Character character, Character target) =>  character switch
         {
-            SKELETON       => new BoneCrunch(character, target).AttackName,
-            TheUncodedOne  => new Unraveling(character, target).AttackName,
-            TrueProgrammer => new Punch(character, target).AttackName,
-            _              => throw new ArgumentOutOfRangeException()
+            SKELETON                      => new BoneCrunch(character, target).AttackName,
+            TheUncodedOne                 => new Unraveling(character, target).AttackName,
+            TrueProgrammer or VinFletcher => new Punch(character, target).AttackName,
+            _                             => throw new ArgumentOutOfRangeException()
         };
 
     protected string GetWeaponAttackName(Character character, Character target) => character.Gear switch
     {
-        Dagger => new Stab(character, target).AttackName,
-        Sword  => new Slash(character, target).AttackName,
-        _ => throw new InvalidOperationException()
+        Dagger  => new Stab(character, target).AttackName,
+        Sword   => new Slash(character, target).AttackName,
+        VinsBow => new QuickShot(character, target).AttackName,
+        _      => throw new InvalidOperationException()
     };
 }
