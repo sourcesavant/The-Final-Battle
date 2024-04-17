@@ -53,6 +53,14 @@ public class Game
         SetupThirdRound();
         GameLoop();
         if (HasHeroWon())
+            _renderer.PrintLine("The heroes won the second round.");
+        else
+            _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
+
+        // Round 4
+        SetupFourthRound();
+        GameLoop();
+        if (HasHeroWon())
             _renderer.PrintLine("The heroes won. The Uncoded One was defeated.");
         else
             _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
@@ -125,6 +133,14 @@ public class Game
     }
 
     private void SetupThirdRound()
+    {
+        Party monsters = new();
+        monsters.AddCharacter(new StoneAmarok());
+        monsters.AddCharacter(new StoneAmarok());
+        _battle.MonstersParty = monsters;
+    }
+
+    private void SetupFourthRound()
     {
         Party monsters = new();
         monsters.AddCharacter(new TheUncodedOne());
