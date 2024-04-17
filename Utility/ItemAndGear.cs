@@ -11,3 +11,5 @@ public record Gear(string Name);
 public record Sword(string Name = "Sword") : Gear(Name);
 
 public record Dagger(string Name = "Dagger") : Gear(Name);
+
+public record VinsBow(string Name = "Vin's Bow") : Gear(Name);
