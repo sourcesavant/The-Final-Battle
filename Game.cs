@@ -1,21 +1,32 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Represents a game that consists of battles between heroes and monsters.
+/// </summary>
 public class Game
 {
     private Battle _battle;
     private Renderer _renderer;
     private UserInput _userInput;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Game"/> class.
+    /// </summary>
+    /// <param name="renderer">The renderer used to display game information.</param>
+    /// <param name="userInput">The user input handler.</param>
     public Game(Renderer renderer, UserInput userInput)
     {
         _renderer = renderer;
         _userInput = userInput;
         _battle = new(_renderer);
-        
+
         SetupHeroParty();
         SetupGameMode();
     }
 
+    /// <summary>
+    /// Sets up the game mode based on user input.
+    /// </summary>
     private void SetupGameMode()
     {
         DisplayGameModeMenu();
@@ -31,12 +42,18 @@ public class Game
         _battle.SetMonstersPlayer(monstersPlayer);
     }
 
+    /// <summary>
+    /// Runs the game, including battles against monsters and the final battle against the Uncoded One.
+    /// </summary>
     public void Run()
     {
         RunBattlesAgainstMonsters();
         RunBattleAgainstUncodedOne();
     }
 
+    /// <summary>
+    /// Runs the battle against the Uncoded One.
+    /// </summary>
     private void RunBattleAgainstUncodedOne()
     {
         SetupFinalRound();
@@ -47,6 +64,9 @@ public class Game
             _renderer.PrintLine("The heroes lost. The Uncoded One's forces have prevailed.");
     }
 
+    /// <summary>
+    /// Runs the battles against monsters in three rounds.
+    /// </summary>
     private void RunBattlesAgainstMonsters()
     {
         for (int i = 1; i <= 3; i++)
@@ -60,14 +80,22 @@ public class Game
         }
     }
 
+    /// <summary>
+    /// Checks if the heroes have won the battle.
+    /// </summary>
+    /// <returns><c>true</c> if the heroes have won; otherwise, <c>false</c>.</returns>
     private bool HasHeroWon()
     {
         if (_battle.HeroesParty == null || _battle.MonstersParty == null)
             throw new InvalidOperationException();
         return !_battle.HeroesParty.IsDead() && _battle.MonstersParty.IsDead();
     }
-    
 
+
+    /// <summary>
+    /// Checks if the heroes have lost the battle.
+    /// </summary>
+    /// <returns><c>true</c> if the heroes have lost; otherwise, <c>false</c>.</returns>
     private bool HasHeroLost()
     {
         if (_battle.HeroesParty == null || _battle.MonstersParty == null)
@@ -75,6 +103,9 @@ public class Game
         return _battle.HeroesParty.IsDead() && !_battle.MonstersParty.IsDead();
     }
 
+    /// <summary>
+    /// Runs the game loop until the heroes win or lose.
+    /// </summary>
     private void GameLoop()
     {
         while (!HasHeroWon() && !HasHeroLost())
@@ -84,10 +115,13 @@ public class Game
         }
     }
 
+    /// <summary>
+    /// Sets up the hero party with initial characters and items.
+    /// </summary>
     private void SetupHeroParty()
     {
         Party heroes = new();
-        
+
         string trueProgrammerName = _userInput.GetTrueProgammerName();
         Character trueProgrammer = new TrueProgrammer(trueProgrammerName);
         trueProgrammer.Gear = new Sword();
@@ -103,6 +137,10 @@ public class Game
         _battle.HeroesParty = heroes;
     }
 
+    /// <summary>
+    /// Sets up the round based on the round number.
+    /// </summary>
+    /// <param name="round">The round number.</param>
     private void SetupRound(int round)
     {
         switch (round)
@@ -124,6 +162,9 @@ public class Game
         }
     }
 
+    /// <summary>
+    /// Sets up the first round with monsters and items.
+    /// </summary>
     private void SetupFirstRound()
     {
         Party monsters = new();
@@ -133,7 +174,10 @@ public class Game
         monsters.AddItem(new HealthPotion());
         _battle.MonstersParty = monsters;
     }
-    
+
+    /// <summary>
+    /// Sets up the second round with monsters and items.
+    /// </summary>
     private void SetupSecondRound()
     {
         Party monsters = new();
@@ -145,6 +189,9 @@ public class Game
         _battle.MonstersParty = monsters;
     }
 
+    /// <summary>
+    /// Sets up the third round with monsters.
+    /// </summary>
     private void SetupThirdRound()
     {
         Party monsters = new();
@@ -153,6 +200,9 @@ public class Game
         _battle.MonstersParty = monsters;
     }
 
+    /// <summary>
+    /// Sets up the final round with the Uncoded One and an item.
+    /// </summary>
     private void SetupFinalRound()
     {
         Party monsters = new();
@@ -161,6 +211,9 @@ public class Game
         _battle.MonstersParty = monsters;
     }
 
+    /// <summary>
+    /// Displays the game mode menu to the user.
+    /// </summary>
     private void DisplayGameModeMenu()
     {
         _renderer.PrintLine("Choose your game mode");

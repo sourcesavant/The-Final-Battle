@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// True Programmer hero. Has 25 HP.
+/// </summary>
 public class TrueProgrammer : Hero
 {
     public override string Name { get; }

@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Equip gear action.
+/// </summary>
 public class EquipGear : IAction
 {
     private readonly Character _character;

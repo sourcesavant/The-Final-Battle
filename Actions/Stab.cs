@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Stab attack. Deals 2 damage.
+/// </summary>
 public class Stab : Attack
 {
     public override string AttackName { get; } = "STAB";

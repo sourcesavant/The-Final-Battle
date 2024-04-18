@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Use item action.
+/// </summary>
 public class UseItem : IAction
 {
     private readonly Item _item;

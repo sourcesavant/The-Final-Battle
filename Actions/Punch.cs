@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Punch attack. Deals 1 damage.
+/// </summary>
 public class Punch : Attack
 {
     public override string AttackName { get; } = "PUNCH";

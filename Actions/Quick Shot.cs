@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Quick shot attack. Deals 3 damage with a 25% hit chance.
+/// </summary>
 public class QuickShot : Attack
 {
     public override string AttackName { get; } = "QUICK SHOT";

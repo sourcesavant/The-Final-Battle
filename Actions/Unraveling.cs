@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Unraveling attack. Deals random damage between 0 and 9.
+/// </summary>
 public class Unraveling : Attack
 {
     public override string AttackName { get; } = "UNRAVELING ATTACK";

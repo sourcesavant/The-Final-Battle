@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Bite attack. Deals 2 damage.
+/// </summary>
 public class Bite : Attack
 {
     public override string AttackName { get; } = "BITE";

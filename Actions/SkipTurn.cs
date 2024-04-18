@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Skip turn action.
+/// </summary>
 public class SkipTurn : IAction
 {
     private readonly Character _character;

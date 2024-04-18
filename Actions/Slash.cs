@@ -1,5 +1,8 @@
 ﻿namespace TheFinalBattle;
 
+/// <summary>
+/// Slash attack. Deals 2 damage.
+/// </summary>
 public class Slash : Attack
 {
     public override string AttackName { get; } = "SLASH";
