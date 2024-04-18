@@ -6,9 +6,11 @@ public class Unraveling : Attack
 
     public Unraveling(Character source, Character target) : base(source, target) { }
 
+    protected override DamageType _damageType { get; } = DamageType.Decoding;
+
     protected override int CalculateDamage()
     {
         Random random = new Random();
-        return random.Next(3);
+        return random.Next(5);
     }
 }

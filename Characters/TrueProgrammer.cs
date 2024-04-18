@@ -8,5 +8,6 @@ public class TrueProgrammer : Hero
     public TrueProgrammer(string name)
     {
         Name = name;
+        DefensiveAttackModifier = new ObjectSight();
     }
 }

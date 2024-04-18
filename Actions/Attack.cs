@@ -6,6 +6,7 @@ public abstract class Attack : IAction
 {
     public virtual string AttackName { get; } = "ATTACK";
     protected virtual double _hitChance { get;  } = 1;
+    protected virtual DamageType _damageType { get; } = DamageType.Normal;
     private readonly Character _source;
     private readonly Character _target;
 
@@ -69,7 +70,11 @@ public abstract class Attack : IAction
         return sb;
     }
 
-    private int GetDefensiveAttackModifier() => _target.DefensiveAttackModifier != null ? _target.DefensiveAttackModifier.Modifier : 0;
+    private int GetDefensiveAttackModifier() => _target.DefensiveAttackModifier != null && _target.DefensiveAttackModifier.DamageTypeResistance == _damageType 
+                                              ? _target.DefensiveAttackModifier.Modifier
+                                              : 0;
+    
+        
 
     private StringBuilder TransferItemsAfterPartyKill(Battle battle, StringBuilder sb, Party party)
     {
