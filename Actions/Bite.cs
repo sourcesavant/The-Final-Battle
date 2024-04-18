@@ -6,5 +6,5 @@ public class Bite : Attack
 
     public Bite(Character source, Character target) : base(source, target) { }
 
-    protected override int CalculateDamage() => 1;
+    protected override int CalculateDamage() => 2;
 }

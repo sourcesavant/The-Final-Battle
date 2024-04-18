@@ -8,6 +8,6 @@ public class Stab : Attack
 
     protected override int CalculateDamage()
     {
-        return 1;
+        return 2;
     }
 }

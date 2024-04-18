@@ -11,6 +11,6 @@ public class Unraveling : Attack
     protected override int CalculateDamage()
     {
         Random random = new Random();
-        return random.Next(5);
+        return random.Next(10);
     }
 }
